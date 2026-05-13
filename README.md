@@ -1,6 +1,6 @@
 # @evodart/ai-product-content-generator
 
-A reusable, framework-agnostic Node.js plugin that generates **SEO-optimized product titles, descriptions, keywords, and meta descriptions** using the Qwen3-8B model via Hugging Face Inference API.
+A reusable, framework-agnostic Node.js plugin that generates **SEO-optimized product titles, descriptions, keywords, and meta descriptions** using the Qwen/Qwen2.5-14B-Instruct model via Hugging Face Inference API.
 
 ---
 
@@ -125,7 +125,7 @@ HF_API_TOKEN=hf_your_personal_api_token_here
 ## Generation Workflow
 
 ```
-Input → Validate (Zod) → Build Prompt → Call Qwen3-8B → Parse JSON → Quality Score → Return
+Input → Validate (Zod) → Build Prompt → Call Qwen/Qwen2.5-14B-Instruct → Parse JSON → Quality Score → Return
 ```
 
 1. **Validate Input** — Zod schema validates all product fields

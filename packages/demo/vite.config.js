@@ -52,7 +52,7 @@ const configuredModelId = (
   allEnvVars.HF_MODEL_ID ||
   allEnvVars.MODEL_SERVER_ID ||
   process.env.HF_MODEL_ID ||
-  'Qwen/Qwen2.5-7B-Instruct'
+  'Qwen/Qwen2.5-14B-Instruct:featherless-ai'
 ).trim();
 
 console.log(`[HF Proxy] Token loaded: ${configuredToken ? `yes (${configuredToken.slice(0, 8)}...)` : 'NO - set HF_API_TOKEN in root .env'}`);
@@ -170,7 +170,6 @@ function createHfProxy() {
         max_tokens: payload.maxNewTokens ?? 2048,
         temperature: payload.temperature ?? 0.3,
         top_p: 0.9,
-        response_format: { type: "json_object" },
       }),
     });
 

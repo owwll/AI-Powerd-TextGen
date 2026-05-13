@@ -1,7 +1,7 @@
 // ── Hugging Face API bridge: calls the Hugging Face Inference API directly.
 
 const HF_BASE_URL = import.meta.env.VITE_HF_ENDPOINT_URL || 'https://router.huggingface.co/v1';
-const HF_MODEL_ID = import.meta.env.VITE_HF_MODEL_ID || 'Qwen/Qwen2.5-7B-Instruct';
+const HF_MODEL_ID = import.meta.env.VITE_HF_MODEL_ID || 'Qwen/Qwen2.5-14B-Instruct:featherless-ai';
 const MODEL = HF_MODEL_ID;
 
 /**
@@ -142,8 +142,8 @@ export async function callGenerateAPI(productData, config) {
   }
 
   const data = await response.json();
-  let rawText = data?.choices?.[0]?.message?.content
-    || data?.generated_text
+  let rawText = data?.generated_text
+    || data?.choices?.[0]?.message?.content
     || data?.choices?.[0]?.text
     || '';
 

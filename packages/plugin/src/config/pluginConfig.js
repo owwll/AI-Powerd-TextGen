@@ -21,7 +21,7 @@ export const PluginConfigSchema = z.object({
    */
   model: z
     .string()
-    .default(() => process.env.HF_MODEL_ID || 'Qwen/Qwen2.5-14B-Instruct'),
+    .default(() => process.env.HF_MODEL_ID || 'Qwen/Qwen2.5-14B-Instruct:featherless-ai'),
 
   /**
    * Hugging Face Inference API base URL.
@@ -59,7 +59,7 @@ export const PluginConfigSchema = z.object({
   /**
    * Request timeout in milliseconds.
    */
-  timeoutMs: z.number().int().positive().default(30000),
+  timeoutMs: z.number().int().positive().default(90000),
 
   /**
    * Enable or disable generation history persistence.
