@@ -1,0 +1,16 @@
+{
+  "name": "ai-powered-textgen-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/plugin",
+    "packages/demo"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=packages/demo",
+    "build": "npm run build --workspace=packages/plugin && npm run build --workspace=packages/demo",
+    "test": "npm run test --workspace=packages/plugin",
+    "plugin:build": "npm run build --workspace=packages/plugin",
+    "demo:dev": "npm run dev --workspace=packages/demo"
+  }
+}

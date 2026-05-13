@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="AI-powered product content generator - Generate SEO-optimized product titles, descriptions, keywords and meta descriptions instantly using Qwen AI." />
+  <title>AI Product Content Generator | @evodart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M14 2L26 8V20L14 26L2 20V8L14 2Z" stroke="url(#grad)" stroke-width="2" fill="none" />
+              <circle cx="14" cy="14" r="4" fill="url(#grad)" />
+              <defs>
+                <linearGradient id="grad" x1="2" y1="2" x2="26" y2="26">
+                  <stop offset="0%" stop-color="#a78bfa" />
+                  <stop offset="100%" stop-color="#38bdf8" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <span class="logo-text">AI Content<span class="logo-accent">Gen</span></span>
+        </div>
+        <div class="header-badge">
+          <span class="badge-dot"></span>
+          Qwen3-8B
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="eyebrow-tag">@evodart/ai-product-content-generator</span>
+        </div>
+        <h1 class="hero-title">
+          Generate <span class="gradient-text">SEO-Optimized</span><br />
+          Product Content <span class="gradient-text">Instantly</span>
+        </h1>
+        <p class="hero-subtitle">
+          A framework-agnostic Node.js plugin powered by Qwen3-8B.
+          Input your product attributes and get compelling titles, descriptions, keywords,
+          and meta descriptions ready for your e-commerce platform.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">8B</span>
+            <span class="stat-label">Parameter Model</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">8+</span>
+            <span class="stat-label">Product Categories</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">100%</span>
+            <span class="stat-label">SEO Focused</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main App -->
+    <main class="main-container">
+      <div class="generator-layout">
+
+        <!-- Left Panel: Input Form -->
+        <div class="panel input-panel">
+          <div class="panel-header">
+            <div class="panel-icon input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="panel-title">Product Input</h2>
+              <p class="panel-subtitle">Configure your product details</p>
+            </div>
+          </div>
+
+          <form id="generator-form" class="generator-form" novalidate>
+
+            <!-- Quick Start Templates -->
+            <div class="field-group">
+              <label class="field-label">Quick Start Templates</label>
+              <div class="template-chips">
+                <button type="button" class="chip" data-template="smartphone">📱 Smartphone</button>
+                <button type="button" class="chip" data-template="laptop">💻 Laptop</button>
+                <button type="button" class="chip" data-template="shoes">👟 Shoes</button>
+                <button type="button" class="chip" data-template="watch">⌚ Watch</button>
+                <button type="button" class="chip" data-template="furniture">🛋️ Furniture</button>
+                <button type="button" class="chip" data-template="book">📚 Book</button>
+              </div>
+            </div>
+
+            <!-- API Token -->
+            <div class="field-group">
+              <label class="field-label" for="api-token">
+                Hugging Face API Token
+                <span class="field-required" id="api-token-required">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="password" id="api-token" class="field-input"
+                  placeholder="Enter your Hugging Face API token" autocomplete="off" />
+                <button type="button" class="input-action" id="toggle-token" title="Toggle visibility">
+                  <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                </button>
+              </div>
+              <p class="field-hint" id="api-token-hint">
+                Optional if you set VITE_HF_API_TOKEN in packages/demo/.env.local. Otherwise enter a token manually.
+              </p>
+              <p class="field-hint">
+                Get your API token at
+                <a href="https://huggingface.co/settings/tokens" target="_blank" class="field-link">huggingface.co</a>
+              </p>
+            </div>
+
+            <!-- Category & Brand -->
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label" for="category">
+                  Category <span class="field-required">*</span>
+                </label>
+                <input type="text" id="category" class="field-input" placeholder="e.g. Smartphones" required />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="brand">Brand</label>
+                <input type="text" id="brand" class="field-input" placeholder="e.g. Samsung" />
+              </div>
+            </div>
+
+            <!-- Tone & Language -->
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label" for="tone">Content Tone</label>
+                <select id="tone" class="field-select">
+                  <option value="professional">Professional</option>
+                  <option value="casual">Casual</option>
+                  <option value="luxury">Luxury</option>
+                  <option value="technical">Technical</option>
+                  <option value="friendly">Friendly</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="language">Language</label>
+                <select id="language" class="field-select">
+                  <option value="English">English</option>
+                  <option value="Spanish">Spanish</option>
+                  <option value="French">French</option>
+                  <option value="German">German</option>
+                  <option value="Portuguese">Portuguese</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Attributes -->
+            <div class="field-group">
+              <label class="field-label">
+                Attributes
+                <span class="field-hint-inline">key: value pairs</span>
+              </label>
+              <div id="attributes-container" class="kv-container">
+                <div class="kv-row">
+                  <input type="text" class="kv-key field-input" placeholder="e.g. color" />
+                  <input type="text" class="kv-value field-input" placeholder="e.g. Titanium Black" />
+                  <button type="button" class="kv-remove" title="Remove">×</button>
+                </div>
+              </div>
+              <button type="button" id="add-attribute" class="btn-ghost">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Add Attribute
+              </button>
+            </div>
+
+            <!-- Specifications -->
+            <div class="field-group">
+              <label class="field-label">
+                Specifications
+                <span class="field-hint-inline">technical details</span>
+              </label>
+              <div id="specs-container" class="kv-container">
+                <div class="kv-row">
+                  <input type="text" class="kv-key field-input" placeholder="e.g. RAM" />
+                  <input type="text" class="kv-value field-input" placeholder="e.g. 12GB" />
+                  <button type="button" class="kv-remove" title="Remove">×</button>
+                </div>
+              </div>
+              <button type="button" id="add-spec" class="btn-ghost">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Add Specification
+              </button>
+            </div>
+
+            <!-- Features -->
+            <div class="field-group">
+              <label class="field-label">Key Features</label>
+              <textarea id="features" class="field-textarea" rows="4"
+                placeholder="Enter one feature per line:&#10;5000mAh battery with 45W fast charging&#10;200MP triple camera system&#10;IP68 water resistance"></textarea>
+            </div>
+
+            <!-- Advanced Settings Toggle -->
+            <details class="advanced-section">
+              <summary class="advanced-toggle">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3" />
+                  <path
+                    d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+                </svg>
+                Advanced Settings
+              </summary>
+              <div class="advanced-body">
+                <div class="field-row">
+                  <div class="field-group">
+                    <label class="field-label" for="max-tokens">Max Tokens</label>
+                    <input type="number" id="max-tokens" class="field-input" value="512" min="100" max="1024" />
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label" for="temperature">Temperature <span id="temp-val">0.7</span></label>
+                    <input type="range" id="temperature" class="field-range" min="0" max="1" step="0.1" value="0.7" />
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Model</label>
+                  <input type="text" class="field-input" value="Qwen/Qwen2.5-14B-Instruct" readonly />
+                </div>
+              </div>
+            </details>
+
+            <!-- Submit Button -->
+            <button type="submit" id="generate-btn" class="btn-primary">
+              <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+              <span id="btn-label">Generate Content</span>
+              <div class="btn-spinner hidden" id="btn-spinner"></div>
+            </button>
+
+          </form>
+        </div>
+
+        <!-- Right Panel: Output -->
+        <div class="panel output-panel" id="output-panel">
+
+          <!-- Empty State -->
+          <div class="empty-state" id="empty-state">
+            <div class="empty-icon">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="32" r="30" stroke="url(#emptyGrad)" stroke-width="1.5" stroke-dasharray="4 3" />
+                <path d="M22 32l7 7 13-14" stroke="url(#emptyGrad)" stroke-width="2.5" stroke-linecap="round"
+                  stroke-linejoin="round" opacity="0.4" />
+                <defs>
+                  <linearGradient id="emptyGrad" x1="2" y1="2" x2="62" y2="62">
+                    <stop offset="0%" stop-color="#a78bfa" />
+                    <stop offset="100%" stop-color="#38bdf8" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <h3 class="empty-title">Ready to Generate</h3>
+            <p class="empty-text">
+              Fill in your product details on the left and click <strong>Generate Content</strong>
+              to create SEO-optimized product copy powered by Qwen AI.
+            </p>
+            <div class="empty-samples">
+              <p class="empty-samples-label">Or try a quick template:</p>
+              <div class="empty-chips">
+                <span class="empty-chip" data-template="smartphone">📱 Smartphone</span>
+                <span class="empty-chip" data-template="laptop">💻 Laptop</span>
+                <span class="empty-chip" data-template="watch">⌚ Watch</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Loading State -->
+          <div class="loading-state hidden" id="loading-state">
+            <div class="loading-animation">
+              <div class="loading-ring"></div>
+              <div class="loading-ring ring-2"></div>
+              <div class="loading-ring ring-3"></div>
+            </div>
+            <p class="loading-title">Generating content...</p>
+            <p class="loading-subtitle" id="loading-step">Validating input</p>
+            <div class="loading-steps">
+              <div class="step-item active" id="step-1">
+                <span class="step-dot"></span>Validating input
+              </div>
+              <div class="step-item" id="step-2">
+                <span class="step-dot"></span>Building AI prompt
+              </div>
+              <div class="step-item" id="step-3">
+                <span class="step-dot"></span>Calling Qwen3-8B model
+              </div>
+              <div class="step-item" id="step-4">
+                <span class="step-dot"></span>Parsing & validating output
+              </div>
+            </div>
+          </div>
+
+          <!-- Error State -->
+          <div class="error-state hidden" id="error-state">
+            <div class="error-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            </div>
+            <h3 class="error-title">Generation Failed</h3>
+            <p class="error-message" id="error-message"></p>
+            <button class="btn-secondary" id="error-retry">Try Again</button>
+          </div>
+
+          <!-- Result -->
+          <div class="result-state hidden" id="result-state">
+            <div class="result-header">
+              <div class="result-meta">
+                <span class="result-badge">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Generated
+                </span>
+                <span class="result-model">Qwen3-8B</span>
+              </div>
+              <div class="result-actions">
+                <div class="quality-score" id="quality-score-badge">
+                  <span class="quality-label">Quality</span>
+                  <span class="quality-value" id="quality-value">—</span>
+                </div>
+                <button class="btn-icon-only" id="copy-all-btn" title="Copy all content">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Title Result -->
+            <div class="result-card" id="title-card">
+              <div class="result-card-header">
+                <div class="result-card-label">
+                  <div class="result-card-icon title-icon">T</div>
+                  Product Title
+                </div>
+                <div class="result-card-actions">
+                  <span class="char-count" id="title-chars">0 chars</span>
+                  <button class="copy-btn" data-target="title-text" title="Copy title">Copy</button>
+                </div>
+              </div>
+              <p class="result-title-text" id="title-text"></p>
+            </div>
+
+            <!-- Description Result -->
+            <div class="result-card" id="description-card">
+              <div class="result-card-header">
+                <div class="result-card-label">
+                  <div class="result-card-icon desc-icon">D</div>
+                  Product Description
+                </div>
+                <div class="result-card-actions">
+                  <span class="char-count" id="desc-chars">0 chars</span>
+                  <button class="copy-btn" data-target="description-text" title="Copy description">Copy</button>
+                </div>
+              </div>
+              <p class="result-desc-text" id="description-text"></p>
+            </div>
+
+            <!-- Keywords Result -->
+            <div class="result-card" id="keywords-card">
+              <div class="result-card-header">
+                <div class="result-card-label">
+                  <div class="result-card-icon kw-icon">#</div>
+                  SEO Keywords
+                </div>
+                <button class="copy-btn" data-target="keywords-container" title="Copy keywords">Copy</button>
+              </div>
+              <div class="keywords-container" id="keywords-container"></div>
+            </div>
+
+            <!-- Meta Description Result -->
+            <div class="result-card" id="meta-card">
+              <div class="result-card-header">
+                <div class="result-card-label">
+                  <div class="result-card-icon meta-icon">M</div>
+                  Meta Description
+                </div>
+                <div class="result-card-actions">
+                  <span class="char-count" id="meta-chars">0 chars</span>
+                  <button class="copy-btn" data-target="meta-text" title="Copy meta">Copy</button>
+                </div>
+              </div>
+              <p class="result-meta-text" id="meta-text"></p>
+              <div class="meta-preview" id="meta-preview"></div>
+            </div>
+
+            <!-- Regenerate Button -->
+            <button class="btn-secondary" id="regenerate-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10" />
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+              </svg>
+              Regenerate
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- How It Works Section -->
+      <section class="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">A 6-step pipeline from product data to production-ready copy</p>
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <div class="pipeline-num">01</div>
+            <div class="pipeline-icon">✅</div>
+            <h3>Validate Input</h3>
+            <p>Zod schema validates all product fields before processing</p>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">02</div>
+            <div class="pipeline-icon">🧠</div>
+            <h3>Build Prompt</h3>
+            <p>Structured Qwen-Instruct format with SEO requirements</p>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">03</div>
+            <div class="pipeline-icon">⚡</div>
+            <h3>Call AI Model</h3>
+            <p>Qwen3-8B generates structured JSON content</p>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">04</div>
+            <div class="pipeline-icon">🔍</div>
+            <h3>Parse Response</h3>
+            <p>4-strategy parser handles any model output format</p>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">05</div>
+            <div class="pipeline-icon">📊</div>
+            <h3>Quality Score</h3>
+            <p>SEO rules, length checks, and prohibited phrase detection</p>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="pipeline-num">06</div>
+            <div class="pipeline-icon">🚀</div>
+            <h3>Return Content</h3>
+            <p>Clean, validated content ready for your platform</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Code Example Section -->
+      <section class="code-section">
+        <h2 class="section-title">Plugin Integration</h2>
+        <p class="section-subtitle">Drop into any Node.js project in minutes</p>
+        <div class="code-tabs">
+          <button class="code-tab active" data-tab="install">Install</button>
+          <button class="code-tab" data-tab="usage">Usage</button>
+          <button class="code-tab" data-tab="output">Output</button>
+        </div>
+        <div class="code-block" id="code-install">
+          <div class="code-header">
+            <span class="code-lang">bash</span>
+            <button class="code-copy" data-code="install">Copy</button>
+          </div>
+          <pre><code id="code-install-content">npm install @evodart/ai-product-content-generator</code></pre>
+        </div>
+        <div class="code-block hidden" id="code-usage">
+          <div class="code-header">
+            <span class="code-lang">javascript</span>
+            <button class="code-copy" data-code="usage">Copy</button>
+          </div>
+          <pre><code id="code-usage-content">import { createProductContentGenerator } from '@evodart/ai-product-content-generator';
+
+const generator = createProductContentGenerator({
+  hfApiToken: process.env.HF_API_TOKEN,
+  model: 'Qwen/Qwen2.5-14B-Instruct',
+  enableHistory: true,
+  maxRetries: 2,
+});
+
+const content = await generator.generateContent({
+  category: 'Smartphones',
+  brand: 'Samsung',
+  attributes: {
+    model: 'Galaxy S24 Ultra',
+    color: 'Titanium Black',
+    storage: '512GB',
+  },
+  specifications: {
+    processor: 'Snapdragon 8 Gen 3',
+    RAM: '12GB',
+    display: '6.8" Dynamic AMOLED',
+    battery: '5000mAh',
+  },
+  features: [
+    '200MP quad camera system',
+    'S Pen included',
+    'IP68 water resistance',
+    '45W fast charging',
+  ],
+  tone: 'professional',
+});</code></pre>
+        </div>
+        <div class="code-block hidden" id="code-output">
+          <div class="code-header">
+            <span class="code-lang">json</span>
+            <button class="code-copy" data-code="output">Copy</button>
+          </div>
+          <pre><code id="code-output-content">{
+  "title": "Samsung Galaxy S24 Ultra 512GB Titanium Black | 200MP Camera & S Pen",
+  "description": "Unleash the ultimate smartphone experience with the Samsung Galaxy S24 Ultra in Titanium Black. Powered by the blazing-fast Snapdragon 8 Gen 3 processor and 12GB of RAM, this flagship device handles everything from heavy multitasking to console-quality gaming with ease...",
+  "keywords": [
+    "Samsung Galaxy S24 Ultra",
+    "512GB smartphone",
+    "200MP camera phone",
+    "Snapdragon 8 Gen 3",
+    "S Pen smartphone",
+    "flagship Android phone",
+    "titanium smartphone",
+    "IP68 waterproof phone"
+  ],
+  "metaDescription": "Buy Samsung Galaxy S24 Ultra 512GB Titanium Black. Features 200MP camera, S Pen, Snapdragon 8 Gen 3. Free shipping & returns.",
+  "qualityScore": 95
+}</code></pre>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <p class="footer-text">
+          <strong>@evodart/ai-product-content-generator</strong> — MIT License
+        </p>
+        <p class="footer-sub">
+          Powered by Qwen3-8B via Hugging Face Inference API
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

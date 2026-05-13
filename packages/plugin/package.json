@@ -1,0 +1,32 @@
+{
+  "name": "@evodart/ai-product-content-generator",
+  "version": "1.0.0",
+  "description": "A reusable Node.js plugin for generating SEO-friendly product titles and descriptions using AI (Qwen3-8B via Hugging Face)",
+  "main": "src/index.js",
+  "type": "module",
+  "keywords": [
+    "ai",
+    "seo",
+    "product-description",
+    "content-generation",
+    "qwen",
+    "huggingface",
+    "ecommerce"
+  ],
+  "author": "Evodart",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
+    "build": "echo 'Plugin built (ESM source, no compile step needed)'"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "@jest/globals": "^29.7.0"
+  },
+  "exports": {
+    ".": "./src/index.js"
+  }
+}
